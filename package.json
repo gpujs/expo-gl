@@ -1,7 +1,8 @@
 {
   "name": "@gpujs/expo-gl",
   "private": false,
-  "version": "0.0.0",
+  "files": ["index.js", "kernel.js"],
+  "version": "0.0.1",
   "description": "A GPU.js extender for use with React Native's Expo library",
   "main": "./index.js",
   "scripts": {
