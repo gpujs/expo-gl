@@ -1,6 +1,7 @@
 const { WebGL2Kernel } = require('./node_modules/gpu.js/src/backend/web-gl2/kernel');
 const { GLView } = require('expo-gl');
 
+let isSupported = null;
 let testContext = null;
 let testExtensions = null;
 let features = null;
@@ -9,7 +10,14 @@ GLView.createContextAsync()
   .then(context => testContext = context);
 
 class ExpoGLKernel extends WebGL2Kernel {
-
+  static get isSupported() {
+    if (isSupported !== null) {
+      return isSupported;
+    }
+    this.setupFeatureChecks();
+    isSupported = this.isContextMatch(testContext);
+    return isSupported;
+  }
   static setupFeatureChecks() {
     if (!testContext || !testContext.getExtension) return;
     testExtensions = {

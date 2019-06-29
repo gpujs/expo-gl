@@ -12,7 +12,7 @@ class GPU extends GPUBase {
     if (!ExpoGLKernel.isSupported) {
       throw new Error('ExpoGLKernel kernel is not supported');
     }
-    return ExpoGLKernel;
+    return this.Kernel = ExpoGLKernel;
   }
 }
 
