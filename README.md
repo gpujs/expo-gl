@@ -3,6 +3,7 @@
 This package allows you to use [GPU.js](gpu.rocks) like this:
 
 ```js
+import { GLView } from 'expo-gl';
 import { GPU } from '@gpujs/expo-gl';
 GLView.createContextAsync()
   .then(context => {
