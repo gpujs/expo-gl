@@ -1,8 +1,11 @@
 {
   "name": "@gpujs/expo-gl",
   "private": false,
-  "files": ["index.js", "kernel.js"],
-  "version": "0.0.5",
+  "files": [
+    "index.js",
+    "kernel.js"
+  ],
+  "version": "0.0.6",
   "description": "A GPU.js extender for use with React Native's Expo library",
   "main": "./index.js",
   "scripts": {
@@ -12,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "expo-gl": "^5.0.1",
-    "gpu.js": "^2.0.0-rc.19"
+    "gpu.js": "^2.0.0-rc.20"
   },
   "repository": {
     "type": "git",

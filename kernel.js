@@ -55,6 +55,11 @@ class ExpoGLKernel extends WebGL2Kernel {
     return features;
   }
 
+  constructor(source, settings) {
+    super(source, settings);
+    this.warnVarUsage = false;
+  }
+
   initContext() {
     throw new Error('No context defined and ExpoGL instantiates them asynchronously');
   }
