@@ -5,7 +5,7 @@
     "index.js",
     "kernel.js"
   ],
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A GPU.js extender for use with React Native's Expo library",
   "main": "./index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "expo-gl": "^5.0.1",
-    "gpu.js": "^2.0.0-rc.26"
+    "gpu.js": "^2.0.0-rc.27"
   },
   "repository": {
     "type": "git",
