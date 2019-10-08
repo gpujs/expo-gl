@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "expo-gl": "^5.0.1",
-    "gpu.js": "^2.0.0-rc.27"
+    "gpu.js": "^2.0.4"
   },
   "repository": {
     "type": "git",
