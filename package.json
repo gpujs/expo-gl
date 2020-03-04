@@ -6,7 +6,7 @@
     "kernel.js",
     "index.d.ts"
   ],
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A GPU.js extender for use with React Native's Expo library",
   "main": "./index.js",
   "scripts": {

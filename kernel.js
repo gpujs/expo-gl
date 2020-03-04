@@ -38,17 +38,29 @@ class ExpoGLKernel extends WebGL2Kernel {
   }
 
   static getFeatures() {
+    const gl = this.testContext;
     return Object.freeze({
       isFloatRead: this.getIsFloatRead(),
       isIntegerDivisionAccurate: this.getIsIntegerDivisionAccurate(),
       kernelMap: true,
       isTextureFloat: true,
       channelCount: this.getChannelCount(),
+      maxTextureSize: this.getMaxTextureSize(),
+      lowIntPrecision: gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.LOW_INT),
+      lowFloatPrecision: gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.LOW_FLOAT),
+      mediumIntPrecision: gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.MEDIUM_INT),
+      mediumFloatPrecision: gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.MEDIUM_FLOAT),
+      highIntPrecision: gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.HIGH_INT),
+      highFloatPrecision: gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.HIGH_FLOAT),
     });
   }
 
   static getChannelCount() {
     return testContext.getParameter(testContext.MAX_DRAW_BUFFERS);
+  }
+
+  static getMaxTextureSize() {
+    return testContext.getParameter(testContext.MAX_TEXTURE_SIZE);
   }
 
   static get features() {
