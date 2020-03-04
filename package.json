@@ -3,9 +3,10 @@
   "private": false,
   "files": [
     "index.js",
-    "kernel.js"
+    "kernel.js",
+    "index.d.ts"
   ],
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A GPU.js extender for use with React Native's Expo library",
   "main": "./index.js",
   "scripts": {
