@@ -6,21 +6,38 @@
     "kernel.js",
     "index.d.ts"
   ],
-  "version": "0.0.12",
-  "description": "A GPU.js extender for use with React Native's Expo library",
+  "version": "1.0.0",
+  "description": "Use GPU.js for native GPGPU in Expo / React Native, via expo-gl",
   "main": "./index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "expo-gl": "^8.0.0",
-    "gpu.js": "^2.6.9"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gpujs/expo-gl.git"
   },
-  "typings": "./index.d.ts"
+  "typings": "./index.d.ts",
+  "peerDependencies": {
+    "expo-gl": "*",
+    "gpu.js": "^2.19.6"
+  },
+  "peerDependenciesMeta": {
+    "expo-gl": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "gpu.js": "^2.19.6",
+    "mocha": "^11.7.5"
+  },
+  "keywords": [
+    "gpu",
+    "gpgpu",
+    "expo",
+    "react-native",
+    "webgl",
+    "gpu.js"
+  ]
 }

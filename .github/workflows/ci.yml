@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Test
+        # Expo's GL has no Node implementation, so these cover wiring only —
+        # context detection, support reporting and error messages. Anything
+        # that compiles a shader needs a device.
+        run: npm test
+
+      - name: Check the package contents
+        run: |
+          npm pack --dry-run
+          for file in index.js kernel.js index.d.ts; do
+            if ! npm pack --dry-run --json | grep -q "\"$file\""; then
+              echo "::error::$file is missing from the published package"
+              exit 1
+            fi
+          done
+
+      - name: Check nothing imports expo-gl at runtime
+        # expo-gl is an optional peer and its native module is unavailable
+        # outside a device, so importing it would break every consumer that
+        # merely requires this package.
+        run: |
+          if grep -rn "require(['\"]expo-gl['\"])" index.js kernel.js; then
+            echo "::error::expo-gl must not be imported — it is a peer dependency"
+            exit 1
+          fi
+          node -e "require('./')" && echo "package loads without expo-gl present"
