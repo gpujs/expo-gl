@@ -32,6 +32,10 @@
     "gpu.js": "^2.19.6",
     "mocha": "^11.7.5"
   },
+  "overrides": {
+    "node-gyp": "^11.5.0",
+    "serialize-javascript": "^7.0.5"
+  },
   "keywords": [
     "gpu",
     "gpgpu",
