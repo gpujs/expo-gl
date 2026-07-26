@@ -17,7 +17,8 @@ versions. This package adds no dependencies of its own.
 
 ## Usage
 
-Expo creates GL contexts asynchronously, so obtain one and hand it to `GPU`:
+Expo creates GL contexts asynchronously, so obtain one and hand it to `GPU`.
+**Write kernels as strings, not functions** — see below.
 
 ```js
 import { GLView } from 'expo-gl';
@@ -26,17 +27,37 @@ import { GPU } from '@gpujs/expo-gl';
 const context = await GLView.createContextAsync();
 const gpu = new GPU({ context });
 
-const kernel = gpu.createKernel(function (a, b) {
+const kernel = gpu.createKernel(`function kernelFunction(a, b) {
   return a[this.thread.x] + b[this.thread.x];
-}).setOutput([3]);
+}`).setOutput([3]);
 
 kernel([1, 2, 3], [4, 5, 6]); // Float32Array [5, 7, 9]
 ```
 
+### Kernels must be strings
+
+React Native runs on Hermes, which discards function source. Calling
+`toString()` on a function returns a placeholder:
+
+```js
+function add(a, b) { return a + b; }
+add.toString(); // "function add(a0, a1) { [bytecode] }"
+```
+
+GPU.js compiles a kernel by reading its source, so a kernel passed as a
+function cannot work here — it fails with `Identifier is not defined on line 1`.
+Strings are unaffected, and GPU.js accepts them everywhere it accepts a
+function, including `addFunction()`.
+
+This is not a limitation of this package and cannot be worked around from it:
+Hermes is the only engine Expo ships as of SDK 53, so there is no engine to
+switch to.
+
 A context from a rendered `<GLView onContextCreate={...} />` works equally well.
 
-Everything else — kernel functions, settings, textures, `createKernelMap` — is
-plain GPU.js; see the [GPU.js documentation](https://github.com/gpujs/gpu.js).
+Everything else — kernel settings, textures, `createKernelMap` — is plain
+GPU.js; see the [GPU.js documentation](https://github.com/gpujs/gpu.js), keeping
+in mind that any kernel or added function must be given as a string.
 
 ### Releasing the context
 

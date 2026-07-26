@@ -90,6 +90,39 @@ class ExpoGLKernel extends WebGL2Kernel {
     });
   }
 
+  /**
+   * React Native runs on Hermes, which discards function source: calling
+   * toString() on a function returns "function name(a0, a1) { [bytecode] }".
+   * GPU.js is a source transpiler, so the probe it inherits — which builds a
+   * kernel from kernelFunction.toString() — parses that placeholder and fails
+   * with "Identifier is not defined". The same probe written as a string
+   * source works, because strings survive Hermes untouched.
+   * @returns {Boolean}
+   */
+  static getIsIntegerDivisionAccurate() {
+    const kernel = new this(
+      'function kernelFunction(v1, v2) { return v1[this.thread.x] / v2[this.thread.x]; }',
+      {
+        context: this.testContext,
+        canvas: this.testCanvas,
+        validate: false,
+        output: [2],
+        returnType: 'Number',
+        precision: 'unsigned',
+        tactic: 'speed',
+      }
+    );
+    const args = [
+      [6, 6030401],
+      [3, 3991]
+    ];
+    kernel.build.apply(kernel, args);
+    kernel.run.apply(kernel, args);
+    const result = kernel.renderOutput();
+    kernel.destroy(true);
+    return result[0] === 2 && result[1] === 1511;
+  }
+
   static getChannelCount() {
     return testContext.getParameter(testContext.MAX_DRAW_BUFFERS);
   }
