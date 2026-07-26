@@ -21,7 +21,7 @@
   "typings": "./index.d.ts",
   "peerDependencies": {
     "expo-gl": "*",
-    "gpu.js": "^2.19.6"
+    "gpu.js": "^2.19.7"
   },
   "peerDependenciesMeta": {
     "expo-gl": {
@@ -29,7 +29,7 @@
     }
   },
   "devDependencies": {
-    "gpu.js": "^2.19.6",
+    "gpu.js": "^2.19.8",
     "mocha": "^11.7.5"
   },
   "overrides": {
