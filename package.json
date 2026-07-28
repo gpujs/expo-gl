@@ -29,7 +29,7 @@
     }
   },
   "devDependencies": {
-    "gpu.js": "^2.19.8",
+    "gpu.js": "^2.19.9",
     "mocha": "^11.7.5"
   },
   "overrides": {
